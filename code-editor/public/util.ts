@@ -1,0 +1,1 @@
+export const HOST_NAME = window.location.host

@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  redis:
+    image: redis
+  queue:
+    image: rabbitmq:latest
+  app:
+    build: ./code-editor
+    ports:
+      - 3000:3000
+    volumes:
+      - ./:usr/home/app
+  worker:
+    build: ./queue
+    depends_on:
+      - redis
+      - queue
+  
+
+    
