@@ -14,7 +14,7 @@ elif [ "$compiler" = "javac" ]
 then
     if $(javac $filename) 
     then
-        java $outputfile < $inputfile
+        java Main < $inputfile
     fi
     exit
 fi

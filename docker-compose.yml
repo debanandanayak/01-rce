@@ -1,21 +1,26 @@
 version: '3'
 
 services:
+
   redis:
     image: redis
+    container_name: "redis"
   queue:
-    image: rabbitmq:latest
+    image: rabbitmq
+    container_name: "queue"
   app:
     build: ./code-editor
     ports:
       - 3000:3000
     volumes:
-      - ./:usr/home/app
+      - ./code-editor:/usr/home/app/
   worker:
     build: ./queue
+    restart: always
     depends_on:
-      - redis
-      - queue
+      queue:
+        condition: service_started
+        
   
 
     

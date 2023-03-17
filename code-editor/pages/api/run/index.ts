@@ -21,15 +21,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case "POST":
 
       const body = JSON.parse(req.body)
-
-      await publish(body)
-      res.status(201).json({ ...body, id, location })
+      const msg = {...body,id}
+      
+      await publish(msg)
+      res.status(201).json({ ...msg, location })
       return
-
   }
 }
 
-function sendToMessageQueue(body: any) {
-  throw new Error("Function not implemented.")
-}
+
 

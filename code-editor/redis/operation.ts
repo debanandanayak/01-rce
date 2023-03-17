@@ -2,7 +2,7 @@
 import {createClient} from "redis"
 console.log("redis");
 
-var client = createClient({ url: "redis://localhost:6379" })
+var client = createClient({ url: "redis://redis:6379" })
 
 client.on("error", () => {
     console.log("Error occurred while connecting to redis");
@@ -14,7 +14,7 @@ client.on("error", () => {
 export const addToRedis = async (key, value) => {
     try {
         await client.connect()
-        await client.setEx(key, 20, JSON.stringify(value))
+        await client.set(key, JSON.stringify(value))
         await client.quit()
     } catch (error) {
         console.log(error)

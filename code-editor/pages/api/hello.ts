@@ -4,5 +4,5 @@ type Data = {
   name :String
 }
 export default async function handler(req : NextApiRequest,res : NextApiResponse<Data>){
-  res.status(200).send({name:"Deba"})
+  res.status(200).send({status:"running"})
 }

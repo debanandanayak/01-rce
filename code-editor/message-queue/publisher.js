@@ -1,17 +1,18 @@
 
 
-
 const mq = require("amqplib")
 const QUEUE_NAME = "CODE"
-
- export async function publish(message) {
-  const connection = await mq.connect("amqp://localhost:5672")
+async function publish(message) {
+  const connection = await mq.connect("amqp://queue:5672")
   const channel = await connection.createChannel()
   await channel.assertQueue(QUEUE_NAME)
-  channel.sendToQueue(QUEUE_NAME, Buffer.from(message))
+  const str = JSON.stringify(message)
+  channel.sendToQueue(QUEUE_NAME, Buffer.from(str))
   await channel.close()
   await connection.close()
 }
 
 
+
+module.exports = {publish}
 
